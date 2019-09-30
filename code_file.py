@@ -7,7 +7,7 @@ import sys
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 #%%
-                 #  os.chdir('address of the folder your data exit')
+os.chdir('address of the folder your data exit')
 #%%
 df=pd.read_csv("credit_risk.csv")
 #%%
@@ -15,7 +15,7 @@ df.isnull().sum()                            #to check how much NAN(not number) 
 #%%
 # filtering out all null values in different coloums
 
-def  fill_Depen(df):                         #to fill the all the columns with null data
+def  fill_Depen(df):                         
     df.Dependents.fillna(0,inplace=True)
     return df
 
