@@ -7,15 +7,15 @@ import sys
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 #%%
-os.chdir('c:\\Users\\HP\\Desktop\\ML')
+                 #  os.chdir('address of the folder your data exit')
 #%%
 df=pd.read_csv("credit_risk.csv")
 #%%
-df.isnull().sum()
+df.isnull().sum()                            #to check how much NAN(not number) is present in our data
 #%%
 # filtering out all null values in different coloums
 
-def  fill_Depen(df):
+def  fill_Depen(df):                         #to fill the all the columns with null data
     df.Dependents.fillna(0,inplace=True)
     return df
 
@@ -44,7 +44,7 @@ def fill_CH(df):
     return df
 
 #%%
-def label_encode(df):    
+def label_encode(df):                                    # to encode string in our data since alorithm of desicion tree only work on numbers
     from sklearn.preprocessing import LabelEncoder
     label=LabelEncoder()
     df['Married']=label.fit_transform(df['Married'])
@@ -65,14 +65,14 @@ def label_feature(df):
     df=label_encode(df)
     return df
 #%%
-train,test=train_test_split(df,test_size=0.2,random_state=12)
+train,test=train_test_split(df,test_size=0.2,random_state=12)               #splitting of data in train and test data set to work on 
 #%%
 train=label_feature(df)
 test=label_feature(df)
 #%%
 def x_and_y(df):
-    x=df.drop(['Education','Loan_ID','Loan_Status','Married','Dependents','Property_Area'],axis=1)
-    y=df.Loan_Status
+    x=df.drop(['Education','Loan_ID','Loan_Status','Married','Dependents','Property_Area'],axis=1)      #dropping of unnecessary columns
+    y=df.Loan_Status 
     return x,y
 x_train,y_train=x_and_y(train)
 x_test,y_test=x_and_y(test)
@@ -81,10 +81,10 @@ x_test,y_test=x_and_y(test)
 y_train.head()
 
 #%%
-x_train.head()
+x_test.head()
 
 #%%
-log_model=DecisionTreeClassifier(criterion="entropy")
+log_model=DecisionTreeClassifier(criterion="entropy")              #main implementation of decision tree in our trained data
 log_model.fit(x_train,y_train)
 prediction=log_model.predict(x_test)
 score=accuracy_score(y_test,prediction)
